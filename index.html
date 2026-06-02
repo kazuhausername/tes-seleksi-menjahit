@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tes Seleksi Pelatihan Menjahit</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+}
+
+.info{
+    background:#eef5ff;
+    border:1px solid #cfdfff;
+    padding:15px;
+    margin-bottom:20px;
+    border-radius:8px;
+}
+
+.question{
+    margin-bottom:25px;
+}
+
+.option{
+    display:block;
+    margin:8px 0;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+#result{
+    margin-top:20px;
+    font-size:22px;
+    font-weight:bold;
+    text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Tes Seleksi Pelatihan Menjahit</h1>
+
+<div class="info">
+Tes ini mengukur pemahaman dasar peserta mengenai:
+<ul>
+<li>Pengoperasian mesin jahit</li>
+<li>Keselamatan dan kesehatan kerja (K3)</li>
+<li>Tes praktik mengikuti garis jahitan</li>
+<li>Alat dan bahan menjahit</li>
+<li>Dasar pola dan kualitas jahitan</li>
+</ul>
+</div>
+
+<form id="quizForm"></form>
+
+<button type="button" onclick="cekNilai()">
+Kirim Jawaban
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+const soal = [
+
+{
+pertanyaan:"Apa tujuan utama melakukan pengecekan kondisi mesin jahit sebelum digunakan?",
+opsi:{
+a:"Menghemat benang",
+b:"Menghindari kerusakan dan kecelakaan kerja",
+c:"Mempercepat menjahit",
+d:"Mengurangi konsumsi listrik"
+},
+jawaban:"b"
+},
+
+{
+pertanyaan:"Jarum mesin jahit yang tumpul dapat menyebabkan?",
+opsi:{
+a:"Jahitan lebih kuat",
+b:"Kain mudah rusak atau tertarik",
+c:"Benang lebih awet",
+d:"Mesin lebih cepat"
+},
+jawaban:"b"
+},
+
+{
+pertanyaan:"Ketika mengganti jarum mesin jahit, langkah yang paling aman adalah?",
+opsi:{
+a:"Mesin tetap menyala",
+b:"Mesin dijalankan pelan",
+c:"Mesin dimatikan terlebih dahulu",
+d:"Menekan pedal mesin"
+},
+jawaban:"c"
+},
+
+{
+pertanyaan:"Pada tes menjahit garis lurus di atas kertas tanpa benang, yang paling dinilai adalah?",
+opsi:{
+a:"Kecepatan mesin",
+b:"Ketepatan mengikuti garis",
+c:"Merek mesin",
+d:"Warna kertas"
+},
+jawaban:"b"
+},
+
+{
+pertanyaan:"Saat tes mengikuti garis lengkung, peserta harus?",
+opsi:{
+a:"Menambah kecepatan",
+b:"Menarik kertas kuat-kuat",
+c:"Mengarahkan kertas dengan terkendali",
+d:"Melepas sepatu mesin"
+},
+jawaban:"c"
+},
+
+{
+pertanyaan:"Jika hasil jahitan sering keluar dari garis pola, hal ini menunjukkan?",
+opsi:{
+a:"Koordinasi tangan dan mata kurang baik",
+b:"Mesin terlalu mahal",
+c:"Benang terlalu panjang",
+d:"Kertas terlalu besar"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Tujuan tes memasang benang pada mesin jahit adalah menilai?",
+opsi:{
+a:"Kecepatan dan pemahaman dasar mesin",
+b:"Kemampuan menggambar",
+c:"Kemampuan menghitung",
+d:"Kekuatan fisik"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Menginjak pedal terlalu mendadak dapat menyebabkan?",
+opsi:{
+a:"Mesin tidak terkendali",
+b:"Jahitan lebih rapi",
+c:"Jarum lebih kuat",
+d:"Kain lebih halus"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Kecepatan menjahit yang baik saat tes praktik adalah?",
+opsi:{
+a:"Paling cepat",
+b:"Paling lambat",
+c:"Stabil dan terkendali",
+d:"Berubah-ubah"
+},
+jawaban:"c"
+},
+
+{
+pertanyaan:"Saat memasang benang, jalur benang harus?",
+opsi:{
+a:"Mengikuti jalur mesin",
+b:"Langsung ke jarum",
+c:"Bebas",
+d:"Tidak perlu tension"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Fungsi sepatu mesin jahit adalah?",
+opsi:{
+a:"Menahan kain saat dijahit",
+b:"Memotong kain",
+c:"Mengukur kain",
+d:"Mengobras"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Fungsi roda tangan pada mesin jahit adalah?",
+opsi:{
+a:"Menggerakkan jarum secara manual",
+b:"Memotong benang",
+c:"Mengukur pola",
+d:"Mengobras"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Mesin obras digunakan untuk?",
+opsi:{
+a:"Merapikan tepi kain",
+b:"Membuat pola",
+c:"Mengukur badan",
+d:"Menyetrika kain"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Alat yang paling tepat untuk memberi tanda pola pada kain adalah?",
+opsi:{
+a:"Tang",
+b:"Obeng",
+c:"Kapur jahit",
+d:"Palu"
+},
+jawaban:"c"
+},
+
+{
+pertanyaan:"Fungsi jarum pentul adalah?",
+opsi:{
+a:"Menahan posisi kain sementara",
+b:"Memotong kain",
+c:"Mengukur kain",
+d:"Menyetrika kain"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Mengapa gunting kain tidak boleh digunakan untuk memotong kertas?",
+opsi:{
+a:"Membuat gunting tumpul",
+b:"Membuat kain mengecil",
+c:"Merusak benang",
+d:"Mengubah warna kain"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Kain katun dikenal karena sifatnya?",
+opsi:{
+a:"Nyaman dan mudah dijahit",
+b:"Keras seperti logam",
+c:"Tidak bisa dipotong",
+d:"Tidak bisa dicuci"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Fungsi ritsleting pada pakaian adalah?",
+opsi:{
+a:"Pembuka dan penutup pakaian",
+b:"Pengukur panjang",
+c:"Pengganti benang",
+d:"Pengganti pola"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Apa fungsi kampuh dalam menjahit?",
+opsi:{
+a:"Sambungan antar potongan kain",
+b:"Hiasan pakaian",
+c:"Jenis benang",
+d:"Jenis kain"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Hasil jahitan yang baik memiliki ciri?",
+opsi:{
+a:"Rapi dan konsisten",
+b:"Longgar",
+c:"Bengkok",
+d:"Putus-putus"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Saat jarum patah ketika menjahit, tindakan pertama adalah?",
+opsi:{
+a:"Mematikan mesin",
+b:"Menambah kecepatan",
+c:"Menarik kain",
+d:"Mengganti benang"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Area kerja menjahit harus bersih karena?",
+opsi:{
+a:"Mengurangi risiko kecelakaan",
+b:"Menghemat kain",
+c:"Mengurangi ukuran pakaian",
+d:"Menghemat benang"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Jika benang kusut pada mesin, tindakan yang benar adalah?",
+opsi:{
+a:"Menghentikan mesin dan memeriksa jalur benang",
+b:"Menambah kecepatan",
+c:"Menarik kain keras",
+d:"Mengganti meja"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Tujuan membersihkan mesin jahit secara berkala adalah?",
+opsi:{
+a:"Menjaga performa mesin",
+b:"Mengubah warna mesin",
+c:"Mengurangi ukuran mesin",
+d:"Menghemat kain"
+},
+jawaban:"a"
+},
+
+{
+pertanyaan:"Ketelitian sangat penting dalam menjahit karena?",
+opsi:{
+a:"Menentukan kualitas hasil akhir",
+b:"Menghemat listrik",
+c:"Mengurangi berat mesin",
+d:"Mengurangi warna kain"
+},
+jawaban:"a"
+}
+
+];
+
+const form = document.getElementById("quizForm");
+
+soal.forEach((s,index)=>{
+
+let html = `
+<div class="question">
+<p><b>${index+1}. ${s.pertanyaan}</b></p>
+
+<label class="option">
+<input type="radio" name="q${index}" value="a">
+${s.opsi.a}
+</label>
+
+<label class="option">
+<input type="radio" name="q${index}" value="b">
+${s.opsi.b}
+</label>
+
+<label class="option">
+<input type="radio" name="q${index}" value="c">
+${s.opsi.c}
+</label>
+
+<label class="option">
+<input type="radio" name="q${index}" value="d">
+${s.opsi.d}
+</label>
+
+</div>
+`;
+
+form.innerHTML += html;
+
+});
+
+function cekNilai(){
+
+let skor = 0;
+
+soal.forEach((s,index)=>{
+
+let pilih =
+document.querySelector(`input[name="q${index}"]:checked`);
+
+if(pilih && pilih.value === s.jawaban){
+skor++;
+}
+
+});
+
+let nilai = Math.round((skor / soal.length) * 100);
+
+document.getElementById("result").innerHTML =
+`Nilai Anda: ${nilai}<br>Benar ${skor} dari ${soal.length} soal`;
+
+}
+
+</script>
+
+</body>
+</html>
